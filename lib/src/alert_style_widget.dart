@@ -12,7 +12,7 @@ class AlertStyleWidget extends StatelessWidget {
   /// Typically, this is a [ListView] containing the contents of the dialog.
   /// Using a [ListView] ensures that the contents can scroll if they are too
   /// big to fit on the display.
-  final Widget content;
+  final Widget? content;
 
   /// The (optional) set of actions that are displayed at the bottom of the
   /// dialog.
@@ -25,18 +25,18 @@ class AlertStyleWidget extends StatelessWidget {
   /// If the [title] is not null but the [content] _is_ null, then an extra 20
   /// pixels of padding is added above the [ButtonBar] to separate the [title]
   /// from the [actions].
-  final List<Widget> actions;
+  final List<Widget>? actions;
 
   /// The (optional) title of the dialog is displayed in a large font at the top
   /// of the dialog.
   ///
   /// Typically a [Text] widget.
-  final Widget title;
+  final Widget? title;
 
   const AlertStyleWidget({
-    Key key,
-    @required this.content,
-    @required this.actions,
+    Key? key,
+    this.content,
+    this.actions,
     this.title,
   }) : super(key: key);
 
@@ -45,7 +45,7 @@ class AlertStyleWidget extends StatelessWidget {
     assert(debugCheckHasMaterialLocalizations(context));
     final children = <Widget>[];
     const semanticLabel = 'semanticLabel';
-    final EdgeInsetsGeometry titlePadding = null;
+    final EdgeInsetsGeometry? titlePadding = null;
     final EdgeInsetsGeometry contentPadding =
         const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0);
 
@@ -56,16 +56,10 @@ class AlertStyleWidget extends StatelessWidget {
         padding: titlePadding ??
             EdgeInsets.fromLTRB(24.0, 24.0, 24.0, content == null ? 20.0 : 0.0),
         child: DefaultTextStyle(
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.headline6!,
           child: Semantics(child: title, namesRoute: true),
         ),
       ));
-    } else {
-      if (defaultTargetPlatform == TargetPlatform.android ||
-          defaultTargetPlatform == TargetPlatform.fuchsia) {
-        label = semanticLabel ??
-            MaterialLocalizations.of(context)?.alertDialogLabel;
-      }
     }
 
     if (content != null) {
@@ -73,8 +67,8 @@ class AlertStyleWidget extends StatelessWidget {
         child: Padding(
           padding: contentPadding,
           child: DefaultTextStyle(
-            style: Theme.of(context).textTheme.subtitle1,
-            child: content,
+            style: Theme.of(context).textTheme.subtitle1!,
+            child: content!,
           ),
         ),
       ));
@@ -83,7 +77,7 @@ class AlertStyleWidget extends StatelessWidget {
     if (actions != null) {
       children.add(
         ButtonBar(
-          children: actions,
+          children: actions!,
         ),
       );
     }
@@ -96,10 +90,7 @@ class AlertStyleWidget extends StatelessWidget {
       ),
     );
 
-    if (label != null) {
-      dialogChild =
-          Semantics(namesRoute: true, label: label, child: dialogChild);
-    }
+    dialogChild = Semantics(namesRoute: true, label: label, child: dialogChild);
 
     return dialogChild;
   }

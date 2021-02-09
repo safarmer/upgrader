@@ -9,65 +9,65 @@ import 'package:upgrader/upgrader.dart';
 
 class UpgradeBase extends StatefulWidget {
   /// The appcast configuration ([AppcastConfiguration]) used by [Appcast].
-  final AppcastConfiguration appcastConfig;
+  final AppcastConfiguration? appcastConfig;
 
   /// The localized messages used for display in upgrader.
-  final UpgraderMessages messages;
+  final UpgraderMessages? messages;
 
   /// For debugging, always force the upgrade to be available.
-  final bool debugDisplayAlways;
+  final bool? debugDisplayAlways;
 
   /// For debugging, display the upgrade at least once once.
-  final bool debugDisplayOnce;
+  final bool? debugDisplayOnce;
 
   /// For debugging, display logging statements.
-  final bool debugLogging;
+  final bool? debugLogging;
 
   /// Duration until alerting user again after later.
   Duration get durationToAlertAgain => Upgrader().durationUntilAlertAgain;
 
   /// Called when the ignore button is tapped or otherwise activated.
   /// Return false when the default behavior should not execute.
-  final BoolCallback onIgnore;
+  final BoolCallback? onIgnore;
 
   /// Called when the ignore button is tapped or otherwise activated.
   /// Return false when the default behavior should not execute.
-  final BoolCallback onLater;
+  final BoolCallback? onLater;
 
   /// Called when the ignore button is tapped or otherwise activated.
   /// Return false when the default behavior should not execute.
-  final BoolCallback onUpdate;
+  final BoolCallback? onUpdate;
 
   /// Provide an HTTP Client that can be replaced for mock testing.
-  final http.Client client;
+  final http.Client? client;
 
   /// Hide or show Ignore button on dialog (default: true)
-  final bool showIgnore;
+  final bool? showIgnore;
 
   /// Hide or show Later button on dialog (default: true)
-  final bool showLater;
+  final bool? showLater;
 
   /// Can alert dialog be dismissed on tap outside of the alert dialog. Not used by alert card. (default: false)
-  final bool canDismissDialog;
+  final bool? canDismissDialog;
 
   /// The country code that will override the system locale. Optional. Used only for iOS.
-  final String countryCode;
+  final String? countryCode;
 
   /// The minimum app version supported by this app. Earlier versions of this app
   /// will be forced to update to the current version. Optional.
-  final String minAppVersion;
+  final String? minAppVersion;
 
   /// The upgrade dialog style. Optional. Used only on UpgradeAlert. (default: material)
-  final UpgradeDialogStyle dialogStyle;
+  final UpgradeDialogStyle? dialogStyle;
 
   UpgradeBase({
-    Key key,
+    Key? key,
     this.appcastConfig,
     this.messages,
     this.debugDisplayAlways = false,
     this.debugDisplayOnce = false,
     this.debugLogging = false,
-    Duration durationToAlertAgain = const Duration(days: 3),
+    Duration? durationToAlertAgain = const Duration(days: 3),
     this.onIgnore,
     this.onLater,
     this.onUpdate,
@@ -129,7 +129,7 @@ class UpgradeBase extends StatefulWidget {
     }
   }
 
-  Widget build(BuildContext context, UpgradeBaseState state) {
+  Widget? build(BuildContext context, UpgradeBaseState state) {
     return null;
   }
 
@@ -142,7 +142,7 @@ class UpgradeBaseState extends State<UpgradeBase> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.build(context, this);
+    return widget.build(context, this)!;
   }
 
   void forceUpdateState() {
